@@ -22,6 +22,7 @@ namespace Api.Controllers
             var types = _genericTypeProvider.GetSupportedTypes().ToList();
             foreach (var type in types)
             {
+                // ToDo: Next version also find all generic controllers !!
                 yield return typeof(GenericController<>).MakeGenericType(type);
             }
         }

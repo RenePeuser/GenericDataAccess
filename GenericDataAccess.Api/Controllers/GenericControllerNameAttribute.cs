@@ -21,6 +21,7 @@ namespace Api.Controllers
 
         public void Apply(ControllerModel controller)
         {
+            // ToDo: Just check for generic arguments or check for a specific custom attribute
             if (controller.ControllerType.GetGenericTypeDefinition() == typeof(GenericController<>))
             {
                 var entityType = controller.ControllerType.GenericTypeArguments[0];

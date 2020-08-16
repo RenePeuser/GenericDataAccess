@@ -29,6 +29,8 @@ namespace Api.Controllers
                 var controllerName = _typeToControllerNameProvider.GetNameFor(type);
                 if (!feature.Controllers.Any(t => t.Name == controllerName))
                 {
+                    // ToDo: Next version also find all generic controllers, and create the type dynamically by the find result
+                    // A good sample how to demonstrate different generic controller versions.
                     var controllerType = typeof(GenericController<>).MakeGenericType(type).GetTypeInfo();
                     feature.Controllers.Add(controllerType);
                 }

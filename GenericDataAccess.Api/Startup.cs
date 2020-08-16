@@ -24,11 +24,13 @@ namespace Api
 
             services.AddSingleton<ErrorHandlingMiddleware>();
 
+            // ToDo: Move into own extension
             services.AddMvc(setup => setup.Conventions.Add(new GenericControllerRouteConvention()))
                     .AddNewtonsoftJson()
                     .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
                     .ConfigureApplicationPartManager(p => p.FeatureProviders.Add(new GenericControllerFeatureProvider()));
 
+            // ToDo: Move into own extension
             services.AddApiVersioning(options =>
             {
                 var controllerTypes = new GenericControllerProvider().GetAllGenericControllerTypes().ToList();
@@ -38,9 +40,11 @@ namespace Api
                 }
             });
 
+
+            // ToDo: Move into own extension
             services.AddSwaggerGen(options =>
             {
-                // Dynamically detect declared versions !!
+                // ToDo: Detect all available versions for more flexibility
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Generic API - DbContext<T>", Version = "v1" });
                 options.SwaggerDoc("v2", new OpenApiInfo { Title = "Generic API - Repository<T>", Version = "v2" });
                 options.OperationFilter<RemoveVersionParameterFilter>();
@@ -69,6 +73,7 @@ namespace Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
+                // ToDo: Detect all available versions for more flexibility
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "V2");
             });

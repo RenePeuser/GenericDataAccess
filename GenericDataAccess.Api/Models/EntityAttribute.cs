@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GenericDataAccess.Models
+namespace Api.Models
 {
     public class EntityAttribute : Attribute
     {

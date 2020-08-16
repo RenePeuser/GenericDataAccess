@@ -1,8 +1,10 @@
 ﻿using System;
+using Api.Controllers;
 
-namespace GenericDataAccess.Models
+namespace Api.Models
 {
     [Entity]
+    [GenericController("api/v{version:apiVersion}/persons", "PersonsController")]
     internal class Person : EntityBase
     {
         public string Name { get; set; } = "Son";

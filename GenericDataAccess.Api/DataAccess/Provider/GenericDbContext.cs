@@ -4,13 +4,13 @@ using System.Linq;
 using Extensions.Pack;
 using Microsoft.EntityFrameworkCore;
 
-namespace GenericDataAccess.DataAccess.Provider
+namespace Api.DataAccess.Provider
 {
-    internal class MyDbContext : DbContext
+    public class GenericDbContext : DbContext
     {
         private readonly EntityProvider _entityProvider;
 
-        public MyDbContext(EntityProvider entityProvider)
+        public GenericDbContext(EntityProvider entityProvider)
         {
             _entityProvider = entityProvider;
         }
@@ -21,7 +21,7 @@ namespace GenericDataAccess.DataAccess.Provider
 
             if (optionsBuilder.IsConfigured.IsFalse())
             {
-                optionsBuilder.UseInMemoryDatabase("MyFirstDataBase");
+                optionsBuilder.UseInMemoryDatabase("GenericDatabase");
             }
         }
 
@@ -45,7 +45,11 @@ namespace GenericDataAccess.DataAccess.Provider
                     item.HasKey(propertyNameOfKey.Name);
                     foreach (var propertyInfo in propertyInfos)
                     {
-                        if (propertyInfo.EqualsTo(propertyNameOfKey)) continue;
+                        if (propertyInfo.EqualsTo(propertyNameOfKey))
+                        {
+                            continue;
+                        }
+
                         item.Property(propertyInfo.PropertyType, propertyInfo.Name);
                     }
                 });

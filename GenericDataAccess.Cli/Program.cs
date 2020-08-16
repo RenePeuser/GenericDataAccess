@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace GenericDataAccess
+namespace Cli
 {
     public class Program
     {

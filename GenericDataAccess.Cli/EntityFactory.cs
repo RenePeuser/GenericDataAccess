@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GenericDataAccess.Models;
+using Cli.Models;
 
-namespace GenericDataAccess
+namespace Cli
 {
     internal class EntityFactory
     {

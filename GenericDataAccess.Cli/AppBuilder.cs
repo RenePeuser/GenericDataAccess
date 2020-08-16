@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace GenericDataAccess
+namespace Cli
 {
     internal class AppBuilder
     {

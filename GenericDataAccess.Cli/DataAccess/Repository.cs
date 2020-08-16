@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using GenericDataAccess.DataAccess.Provider;
-using GenericDataAccess.Models;
+using Cli.DataAccess.Provider;
+using Cli.Models;
 
-namespace GenericDataAccess.DataAccess
+namespace Cli.DataAccess
 {
     internal class Repository<TEntity> where TEntity : EntityBase
     {

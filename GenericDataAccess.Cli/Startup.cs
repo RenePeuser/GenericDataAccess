@@ -1,8 +1,8 @@
-﻿using GenericDataAccess.DataAccess;
-using GenericDataAccess.DataAccess.Provider;
+﻿using Cli.DataAccess;
+using Cli.DataAccess.Provider;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GenericDataAccess
+namespace Cli
 {
     internal class Startup
     {

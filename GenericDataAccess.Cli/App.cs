@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cli.DataAccess;
+using Cli.Models;
 using ConsoleTables;
-using GenericDataAccess.DataAccess;
-using GenericDataAccess.Models;
 
-namespace GenericDataAccess
+namespace Cli
 {
     internal class App
     {
-        private readonly Repository<Person> _personRepo;
         private readonly EntityFactory _entityFactory;
+        private readonly Repository<Person> _personRepo;
 
         public App(Repository<Person> personRepo, EntityFactory entityFactory)
         {

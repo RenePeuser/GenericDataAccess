@@ -1,4 +1,4 @@
-﻿namespace GenericDataAccess.Models
+﻿namespace Cli.Models
 {
     [Entity]
     internal class Job : EntityBase

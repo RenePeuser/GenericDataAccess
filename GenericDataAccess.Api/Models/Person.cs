@@ -1,10 +1,12 @@
 ﻿using System;
 using Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Models
 {
     [Entity]
-    [GenericController("api/v{version:apiVersion}/persons", "PersonsController")]
+    [ApiVersion("2.0")]
+    [GenericController("v{version:apiVersion}/persons", "PersonsController")]
     internal class Person : EntityBase
     {
         public string Name { get; set; } = "Son";

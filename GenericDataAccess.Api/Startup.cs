@@ -1,9 +1,11 @@
 using System.Linq;
 using System.Text.Json.Serialization;
 using Api.Controllers;
+using Api.DataAccess;
 using Api.DataAccess.Provider;
 using Api.Errorhandling;
 using Api.Swagger;
+using Extensions.Pack;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +22,15 @@ namespace Api
             services.AddControllers();
 
             services.AddSingleton<GenericDbContext>();
-            services.AddSingleton<EntityProvider>();
-
+            services.AddSingleton(typeof(Repository<>));
             services.AddSingleton<ErrorHandlingMiddleware>();
+            services.AddSingleton<IApiVersionProvider, ApiVersionProvider>();
+            services.AddSingleton<IAssemblyTypeProvider, AssemblyTypeProvider>();
+            services.AddSingleton<IEntityProvider, EntityProvider>();
+            services.AddSingleton<IGenericControllerAttributeProvider, GenericControllerAttributeProvider>();
+            services.AddSingleton<TypeSpecificRouteProvider>();
+            services.AddSingleton<TypeToControllerNameProvider>();
+            services.AddSingleton<IGenericTypeProvider, GenericTypeProvider>();
 
             // ToDo: Move into own extension
             services.AddMvc(setup => setup.Conventions.Add(new GenericControllerRouteConvention()))
@@ -33,10 +41,16 @@ namespace Api
             // ToDo: Move into own extension
             services.AddApiVersioning(options =>
             {
-                var controllerTypes = new GenericControllerProvider().GetAllGenericControllerTypes().ToList();
+                var controllerTypes = new GenericControllerProvider().GetAll().ToList();
                 foreach (var controllerType in controllerTypes)
                 {
-                    options.Conventions.Controller(controllerType).HasApiVersion(new ApiVersion(2, 0));
+                    var apiVersion = controllerType.GetCustomAttribute<ApiVersionAttribute>();
+                    if (apiVersion.IsNull())
+                    {
+                        throw new ProblemDetailsException(500, $"Missing api version attribute on controller: {controllerType.Name}", $"Missing api version attribute on controller: {controllerType.Name}. please set the ApiVersion attribute to the the named controller.");
+                    }
+                    var allVersions = apiVersion.Versions.Select(v => v);
+                    allVersions.ForEach(version => options.Conventions.Controller(controllerType).HasApiVersion(version));
                 }
             });
 
@@ -44,9 +58,12 @@ namespace Api
             // ToDo: Move into own extension
             services.AddSwaggerGen(options =>
             {
-                // ToDo: Detect all available versions for more flexibility
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Generic API - DbContext<T>", Version = "v1" });
-                options.SwaggerDoc("v2", new OpenApiInfo { Title = "Generic API - Repository<T>", Version = "v2" });
+                foreach (var apiVersion in new ApiVersionProvider().GetAll())
+                {
+                    // ToDo: would be also nice add info to the api description attribute for even more fun :-)
+                    options.SwaggerDoc($"v{apiVersion.MajorVersion}", new OpenApiInfo { Title = "Generic API", Version = $"v{apiVersion.MajorVersion}" });
+                }
+
                 options.OperationFilter<RemoveVersionParameterFilter>();
                 options.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
             });
@@ -73,9 +90,10 @@ namespace Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                // ToDo: Detect all available versions for more flexibility
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "V2");
+                foreach (var apiVersion in new ApiVersionProvider().GetAll())
+                {
+                    c.SwaggerEndpoint($"/swagger/v{apiVersion.MajorVersion}/swagger.json", $"V{apiVersion.MajorVersion}");
+                }
             });
         }
     }

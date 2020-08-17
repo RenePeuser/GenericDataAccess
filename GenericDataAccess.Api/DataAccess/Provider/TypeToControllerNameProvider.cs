@@ -2,7 +2,7 @@
 using System.Linq;
 using Api.Errorhandling;
 
-namespace Api.Controllers
+namespace Api.DataAccess.Provider
 {
     public class TypeToControllerNameProvider
     {

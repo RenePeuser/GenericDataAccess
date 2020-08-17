@@ -8,9 +8,9 @@ namespace Api.DataAccess.Provider
 {
     public class GenericDbContext : DbContext
     {
-        private readonly EntityProvider _entityProvider;
+        private readonly IEntityProvider _entityProvider;
 
-        public GenericDbContext(EntityProvider entityProvider)
+        public GenericDbContext(IEntityProvider entityProvider)
         {
             _entityProvider = entityProvider;
         }

@@ -8,9 +8,16 @@ namespace Cli.DataAccess.Provider
 {
     public class EntityProvider
     {
+        private readonly AssemblyTypeProvider _assemblyTypeProvider;
+
+        public EntityProvider(AssemblyTypeProvider assemblyTypeProvider)
+        {
+            _assemblyTypeProvider = assemblyTypeProvider;
+        }
+
         public IEnumerable<Type> GetAll()
         {
-            return GetType().Assembly.GetTypes().Where(t => t.HasCustomAttribute<EntityAttribute>()).ToList();
+            return _assemblyTypeProvider.GetAll().Where(t => t.HasCustomAttribute<EntityAttribute>()).ToList();
         }
     }
 }

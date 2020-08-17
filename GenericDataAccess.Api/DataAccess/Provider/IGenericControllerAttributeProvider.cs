@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Api.Controllers;
 
-namespace Api.Controllers
+namespace Api.DataAccess.Provider
 {
     public interface IGenericControllerAttributeProvider
     {

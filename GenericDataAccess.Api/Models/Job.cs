@@ -1,9 +1,11 @@
 ﻿using Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Models
 {
     [Entity]
-    [GenericController("api/v{version:apiVersion}/jobs", "JobsController")]
+    [ApiVersion("1.0")]
+    [GenericController("v{version:apiVersion}/jobs", "JobsController")]
     internal class Job : EntityBase
     {
         public string Company { get; set; } = "Microsoft";

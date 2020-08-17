@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Api.DataAccess.Provider;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -36,17 +37,22 @@ namespace Api.Controllers
             var attributeRouteModel = controller.Selectors.First().AttributeRouteModel;
             if (attributeRouteModel.IsNull())
             {
-                controller.Selectors.First().AttributeRouteModel = GetRoutAttribute(genericType);
+                controller.Selectors.First().AttributeRouteModel = GetRoutAttribute(controller, genericType);
             }
             else
             {
-                controller.Selectors.Add(new SelectorModel {AttributeRouteModel = GetRoutAttribute(genericType)});
+                controller.Selectors.Add(new SelectorModel {AttributeRouteModel = GetRoutAttribute(controller, genericType) });
             }
         }
 
-        private AttributeRouteModel GetRoutAttribute(Type genericType)
+        private AttributeRouteModel GetRoutAttribute(ControllerModel controllerModel, Type genericType)
         {
-            return new AttributeRouteModel(new RouteAttribute(_typeSpecificRouteProvider.GetRouteFor(genericType)));
+            var route = _typeSpecificRouteProvider.GetRouteFor(genericType);
+            var apiVersion = controllerModel.Attributes.OfType<ApiVersionAttribute>().FirstOrDefault().Versions.FirstOrDefault();
+            var controllerVersion = controllerModel;
+            var concreteRoute = route.Replace("{version:apiVersion}", $"{apiVersion.MajorVersion}.{apiVersion.MinorVersion}");
+            
+            return new AttributeRouteModel(new RouteAttribute(concreteRoute));
         }
     }
 }

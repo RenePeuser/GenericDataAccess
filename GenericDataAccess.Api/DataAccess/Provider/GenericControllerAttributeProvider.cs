@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using Api.Controllers;
 using Extensions.Pack;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace Api.DataAccess.Provider
 {
     public class GenericControllerAttributeProvider : IGenericControllerAttributeProvider
     {
+        private static readonly AssemblyTypeProvider AssemblyTypeProvider = new AssemblyTypeProvider();
         private static readonly Lazy<IEnumerable<GenerateControllerInfo>> Lazy = new Lazy<IEnumerable<GenerateControllerInfo>>(CollectGenerateControllerInfoInternal);
 
         public IEnumerable<GenerateControllerInfo> GetAll()
@@ -17,14 +19,8 @@ namespace Api.Controllers
 
         private static IEnumerable<GenerateControllerInfo> CollectGenerateControllerInfoInternal()
         {
-            var assemblies = GetAssembliesToLookFor().ToList();
-            var types = assemblies.SelectMany(assembly => assembly.GetTypes().Where(t => t.HasCustomAttribute<GenericControllerAttribute>())).ToList();
-            return types.Select(t => new GenerateControllerInfo(t, t.GetCustomAttribute<GenericControllerAttribute>()));
-        }
-
-        private static IEnumerable<Assembly> GetAssembliesToLookFor()
-        {
-            yield return typeof(GenericControllerAttributeProvider).Assembly;
+            var types = AssemblyTypeProvider.GetAll().Where(t => t.HasCustomAttribute<GenericControllerAttribute>());
+            return types.Select(t => new GenerateControllerInfo(t, t.GetCustomAttribute<GenericControllerAttribute>(), t.GetCustomAttributes<ApiVersionAttribute>().SelectMany(a => a.Versions).ToList()));
         }
     }
 }

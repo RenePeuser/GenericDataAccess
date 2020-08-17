@@ -1,4 +1,5 @@
 ﻿using System;
+using Api.DataAccess.Provider;
 using Api.Errorhandling;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -21,8 +22,7 @@ namespace Api.Controllers
 
         public void Apply(ControllerModel controller)
         {
-            // ToDo: Just check for generic arguments or check for a specific custom attribute
-            if (controller.ControllerType.GetGenericTypeDefinition() == typeof(GenericController<>))
+            if (controller.ControllerType.HasCustomAttribute<GenericControllerNameAttribute>())
             {
                 var entityType = controller.ControllerType.GenericTypeArguments[0];
                 var controllerName = _typeToControllerNameProvider.GetNameFor(entityType);

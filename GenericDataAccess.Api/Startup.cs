@@ -61,7 +61,7 @@ namespace Api
                 foreach (var apiVersion in new ApiVersionProvider().GetAll())
                 {
                     // ToDo: would be also nice add info to the api description attribute for even more fun :-)
-                    options.SwaggerDoc($"v{apiVersion.MajorVersion}", new OpenApiInfo { Title = "Generic API", Version = $"v{apiVersion.MajorVersion}" });
+                    options.SwaggerDoc($"v{apiVersion.MajorVersion}.{apiVersion.MinorVersion}", new OpenApiInfo { Title = "Generic API", Version = $"v{apiVersion.MajorVersion}" });
                 }
 
                 options.OperationFilter<RemoveVersionParameterFilter>();
@@ -92,7 +92,7 @@ namespace Api
             {
                 foreach (var apiVersion in new ApiVersionProvider().GetAll())
                 {
-                    c.SwaggerEndpoint($"/swagger/v{apiVersion.MajorVersion}/swagger.json", $"V{apiVersion.MajorVersion}");
+                    c.SwaggerEndpoint($"/swagger/v{apiVersion.MajorVersion}.{apiVersion.MinorVersion}/swagger.json", $"V{apiVersion.MajorVersion}.{apiVersion.MinorVersion}");
                 }
             });
         }

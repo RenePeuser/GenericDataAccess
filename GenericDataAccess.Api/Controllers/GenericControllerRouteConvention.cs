@@ -48,8 +48,8 @@ namespace Api.Controllers
         private AttributeRouteModel GetRoutAttribute(ControllerModel controllerModel, Type genericType)
         {
             var route = _typeSpecificRouteProvider.GetRouteFor(genericType);
+            // ToDo: refactor this.
             var apiVersion = controllerModel.Attributes.OfType<ApiVersionAttribute>().FirstOrDefault().Versions.FirstOrDefault();
-            var controllerVersion = controllerModel;
             var concreteRoute = route.Replace("{version:apiVersion}", $"{apiVersion.MajorVersion}.{apiVersion.MinorVersion}");
             
             return new AttributeRouteModel(new RouteAttribute(concreteRoute));

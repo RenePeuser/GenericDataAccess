@@ -54,7 +54,4 @@ namespace Api.Controllers
             return Ok();
         }
     }
-    
-    // Sample controller V1 with direct accessing the db context
-    // WIP :-)
 }

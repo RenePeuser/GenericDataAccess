@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Models
 {
     [Entity]
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [GenericController("v{version:apiVersion}/persons", "PersonsController")]
     internal class Person : EntityBase
     {

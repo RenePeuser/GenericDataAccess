@@ -36,4 +36,36 @@ namespace Api.Controllers
         //    return Ok();
         //}
     }
+
+    [ApiVersion("3.0")]
+    [GenericControllerName]
+    internal class GenericControllerV3<TEntity> : ControllerBase where TEntity : EntityBase
+    {
+        private readonly Repository<TEntity> _repository;
+
+        public GenericControllerV3(Repository<TEntity> repository)
+        {
+            _repository = repository;
+        }
+
+        [HttpGet]
+        public IActionResult GetAsync()
+        {
+            return Ok(_repository.GetAll());
+        }
+
+        //[HttpPost]
+        //public IActionResult Post([FromBody] TEntity entity)
+        //{
+        //    _repository.Add(entity);
+        //    return Ok(entity);
+        //}
+
+        //[HttpDelete]
+        //public IActionResult Delete(string id)
+        //{
+        //    _repository.Delete(id);
+        //    return Ok();
+        //}
+    }
 }

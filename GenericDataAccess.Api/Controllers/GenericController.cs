@@ -52,6 +52,9 @@ namespace Api.Controllers
                 throw new ProblemDetailsException(404, $"Resource with id: '{id}' does not exists", $"The resource of type: {typeof(TEntity).Name} with the id: '{id}' does not exists");
             }
 
+            _context.Remove(result);
+            _context.SaveChanges();
+
             return Ok();
         }
     }

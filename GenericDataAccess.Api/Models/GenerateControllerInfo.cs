@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using Api.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace Api.Models
 {
     public class GenerateControllerInfo
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Api.Controllers;
+using Api.Models;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 

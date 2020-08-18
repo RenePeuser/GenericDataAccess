@@ -15,4 +15,12 @@ namespace Api.Models
 
         public DateTime Birthday { get; set; } = new DateTime(1984, 11, 1);
     }
+
+    [Entity]
+    [ApiVersion("2.0")]
+    [GenericController("v{version:apiVersion}/jobs", "JobsController")]
+    internal class Job : EntityBase
+    {
+        public string Company { get; set; } = "Microsoft";
+    }
 }

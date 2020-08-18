@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Api.Attributes;
 using Api.DataAccess.Provider;
 using Api.Errorhandling;
 using Api.Models;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    // Sample controller V1 with direct accessing the db context
     [ApiVersion("1.0")]
     [GenericControllerName]
     internal class GenericController<TEntity> : ControllerBase where TEntity : EntityBase
@@ -32,7 +32,8 @@ namespace Api.Controllers
             var result = _context.Set<TEntity>().FirstOrDefault(entity => entity.Id.EqualsTo(entity.Id));
             if (result.IsNotNull())
             {
-                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists", $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
+                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists",
+                    $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
             }
 
             _context.Add(entity);

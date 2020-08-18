@@ -34,9 +34,9 @@ namespace Api
 
             // ToDo: Move into own extension
             services.AddMvc(setup => setup.Conventions.Add(new GenericControllerRouteConvention()))
-                    .AddNewtonsoftJson()
-                    .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
-                    .ConfigureApplicationPartManager(p => p.FeatureProviders.Add(new GenericControllerFeatureProvider()));
+                .AddNewtonsoftJson()
+                .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
+                .ConfigureApplicationPartManager(p => p.FeatureProviders.Add(new GenericControllerFeatureProvider()));
 
             // ToDo: Move into own extension
             services.AddApiVersioning(options =>
@@ -47,8 +47,10 @@ namespace Api
                     var apiVersion = controllerType.GetCustomAttribute<ApiVersionAttribute>();
                     if (apiVersion.IsNull())
                     {
-                        throw new ProblemDetailsException(500, $"Missing api version attribute on controller: {controllerType.Name}", $"Missing api version attribute on controller: {controllerType.Name}. please set the ApiVersion attribute to the the named controller.");
+                        throw new ProblemDetailsException(500, $"Missing api version attribute on controller: {controllerType.Name}",
+                            $"Missing api version attribute on controller: {controllerType.Name}. please set the ApiVersion attribute to the the named controller.");
                     }
+
                     var allVersions = apiVersion.Versions.Select(v => v);
                     allVersions.ForEach(version => options.Conventions.Controller(controllerType).HasApiVersion(version));
                 }
@@ -61,7 +63,7 @@ namespace Api
                 foreach (var apiVersion in new ApiVersionProvider().GetAll())
                 {
                     // ToDo: would be also nice add info to the api description attribute for even more fun :-)
-                    options.SwaggerDoc($"v{apiVersion.MajorVersion}.{apiVersion.MinorVersion}", new OpenApiInfo { Title = "Generic API", Version = $"v{apiVersion.MajorVersion}" });
+                    options.SwaggerDoc($"v{apiVersion.MajorVersion}.{apiVersion.MinorVersion}", new OpenApiInfo {Title = "Generic API", Version = $"v{apiVersion.MajorVersion}"});
                 }
 
                 options.OperationFilter<RemoveVersionParameterFilter>();

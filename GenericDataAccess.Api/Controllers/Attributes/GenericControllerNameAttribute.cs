@@ -4,7 +4,7 @@ using Api.Errorhandling;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Api.Controllers
+namespace Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class GenericControllerNameAttribute : Attribute, IControllerModelConvention

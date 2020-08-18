@@ -41,7 +41,7 @@ namespace Api.Controllers
             }
             else
             {
-                controller.Selectors.Add(new SelectorModel {AttributeRouteModel = GetRoutAttribute(controller, genericType) });
+                controller.Selectors.Add(new SelectorModel {AttributeRouteModel = GetRoutAttribute(controller, genericType)});
             }
         }
 
@@ -51,7 +51,7 @@ namespace Api.Controllers
             // ToDo: refactor this.
             var apiVersion = controllerModel.Attributes.OfType<ApiVersionAttribute>().FirstOrDefault().Versions.FirstOrDefault();
             var concreteRoute = route.Replace("{version:apiVersion}", $"{apiVersion.MajorVersion}.{apiVersion.MinorVersion}");
-            
+
             return new AttributeRouteModel(new RouteAttribute(concreteRoute));
         }
     }

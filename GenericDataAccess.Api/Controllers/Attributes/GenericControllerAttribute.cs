@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Api.Controllers
+﻿namespace Api.Attributes
 {
+    using System;
+
     public class GenericControllerAttribute : Attribute
     {
         public GenericControllerAttribute(string route, string contollerName)

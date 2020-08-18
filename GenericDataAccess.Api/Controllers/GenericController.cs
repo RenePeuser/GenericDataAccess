@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Api.DataAccess.Provider;
 using Api.Errorhandling;
 using Api.Models;
@@ -46,7 +47,7 @@ namespace Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] TEntity entity)
+        public async Task<ActionResult> Post([FromBody] TEntity entity)
         {
             var result = _context.Set<TEntity>().FirstOrDefault(entity => entity.Id.EqualsTo(entity.Id));
             if (result.IsNotNull())
@@ -54,8 +55,8 @@ namespace Api.Controllers
                 throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists", $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
             }
 
-            _context.Add(entity);
-            _context.SaveChanges();
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
 
             return Ok(entity);
         }
@@ -63,11 +64,19 @@ namespace Api.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
             var guid = new Guid(id);
-            var result = _context.Set<TEntity>().FirstOrDefault(entity => entity.Id.EqualsTo(guid));
-            return result.IsNull() ?  NotFound(id).Cast<IActionResult>() : Ok();
+            var existingItem = _context.Set<TEntity>().FirstOrDefault(entity => entity.Id.EqualsTo(guid));
+            if (existingItem.IsNull())
+            {
+                return NotFound(id);
+            }
+
+            _context.Remove(existingItem);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }

@@ -2,7 +2,7 @@
 using Api.Controllers.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Models
+namespace Api.DataAccess.Models
 {
     [Entity]
     [ApiVersion("2.0")]

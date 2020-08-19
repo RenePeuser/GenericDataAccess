@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Models
+namespace Api.DataAccess.Models
 {
     internal class EntityBase
     {

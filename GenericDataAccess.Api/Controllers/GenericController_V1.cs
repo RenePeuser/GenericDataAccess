@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Controllers.Attributes;
+using Api.DataAccess.Models;
 using Api.DataAccess.Provider;
 using Api.Errorhandling;
-using Api.Models;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

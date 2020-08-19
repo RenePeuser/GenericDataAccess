@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Api.Controllers;
 using Api.Controllers.Attributes;
-using Api.Models;
+using Api.DataAccess.Models;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Api.Models;
+using Api.DataAccess.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

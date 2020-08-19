@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Api.Controllers;
-using Api.Models;
+using Api.DataAccess.Models;
 
 namespace Api.DataAccess.Provider
 {

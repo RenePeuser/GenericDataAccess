@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Api.Models;
+using Api.DataAccess.Models;
 using Extensions.Pack;
 
 namespace Api.DataAccess.Provider

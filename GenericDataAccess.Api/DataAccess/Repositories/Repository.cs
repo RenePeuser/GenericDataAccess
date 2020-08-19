@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.DataAccess.Models;
 using Api.DataAccess.Provider;
-using Api.Models;
 
 namespace Api.DataAccess.Repositories
 {

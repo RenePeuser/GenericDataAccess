@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Api.Controllers.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Models
+namespace Api.DataAccess.Models
 {
     public class GenerateControllerInfo
     {

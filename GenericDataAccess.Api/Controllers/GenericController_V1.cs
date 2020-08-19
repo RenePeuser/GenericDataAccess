@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Controllers.Attributes;
+using Api.DataAccess.Mapper;
 using Api.DataAccess.Models;
 using Api.DataAccess.Provider;
 using Api.Errorhandling;
@@ -17,10 +18,12 @@ namespace Api.Controllers
     internal class GenericController_V1<TEntity> : ControllerBase where TEntity : EntityBase
     {
         private readonly GenericDbContext _context;
+        private readonly IMapper<TEntity> _mapper;
 
-        public GenericController_V1(GenericDbContext context)
+        public GenericController_V1(GenericDbContext context, IMapper<TEntity> mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -77,10 +80,9 @@ namespace Api.Controllers
                 return NotFound(id);
             }
 
-            // ToDo: check why direct update crash
-            // _context.Update(existingItem);
-            _context.Remove(existingItem);
-            await _context.AddAsync(existingItem);
+            var result = _mapper.Map(entity, existingItem);
+            _context.Update(result);
+
             await _context.SaveChangesAsync();
 
             return Ok();

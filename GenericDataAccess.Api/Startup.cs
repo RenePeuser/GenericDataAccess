@@ -1,3 +1,5 @@
+using Api.Controllers;
+using Api.DataAccess.Mapper;
 using Api.DataAccess.Provider;
 using Api.DataAccess.Repositories;
 using Api.Errorhandling;
@@ -24,6 +26,7 @@ namespace Api
             services.AddSingleton<TypeSpecificRouteProvider>();
             services.AddSingleton<TypeToControllerNameProvider>();
             services.AddSingleton<IGenericTypeProvider, GenericTypeProvider>();
+            services.AddSingleton(typeof(IMapper<>), typeof(GenericMapper<>));
 
             // new one comes here :-)
             services.AddMvcUltimate();

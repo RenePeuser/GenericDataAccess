@@ -8,11 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Infrastructure.Provider
 {
-    public interface IGenericControllerProvider
-    {
-        IEnumerable<Type> GetAll();
-    }
-
     public class GenericControllerProvider : IGenericControllerProvider
     {
         private static readonly IGenericTypeProvider GenericTypeProvider = new GenericTypeProvider();

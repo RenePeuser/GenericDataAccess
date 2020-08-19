@@ -21,11 +21,9 @@ namespace Api
             services.AddControllers();
 
             // this is for simple test scenario.
-            services.AddSingleton<InMemoryDbContext>();
-
-            // this is for scenario that we have many sources to inject IEnumerable<GenericDbContext>
-            services.AddSingleton<GenericDbContext, InMemory_One_Of_Two>();
-            services.AddSingleton<GenericDbContext, InMemory_Two_Of_Two>();
+            services.AddSingleton<GenericDbContextV1>();
+            services.AddSingleton<GenericDbContextV2>();
+            services.AddSingleton<GenericDbContextV3>();
 
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<IApiVersionProvider, ApiVersionProvider>();

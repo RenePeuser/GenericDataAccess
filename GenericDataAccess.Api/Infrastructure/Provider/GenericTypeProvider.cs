@@ -4,11 +4,6 @@ using System.Linq;
 
 namespace Api.Infrastructure.Provider
 {
-    public interface IGenericTypeProvider
-    {
-        IEnumerable<Type> GetSupportedTypes();
-    }
-
     public class GenericTypeProvider : IGenericTypeProvider
     {
         private static readonly IGenericControllerAttributeProvider GenericControllerAttributeProvider = new GenericControllerAttributeProvider();

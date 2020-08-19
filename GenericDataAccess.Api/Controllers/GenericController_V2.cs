@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-
     [ApiVersion("2.0")]
     [GenericControllerName]
     internal class GenericController_V2<TEntity> : ControllerBase where TEntity : EntityBase

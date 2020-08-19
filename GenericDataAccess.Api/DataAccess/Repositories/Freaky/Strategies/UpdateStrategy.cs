@@ -12,13 +12,20 @@ namespace Api.DataAccess.Repositories.Freaky.Strategies
     // update. Do not try this at home if you not know what you are doing.
     internal class UpdateStrategy<TEntity> where TEntity : EntityBase
     {
-        private readonly IEnumerable<GenericDbContext> _genericDbContexts;
+        private readonly IEnumerable<GenericDbContextBase> _genericDbContexts;
         private readonly IMapper<TEntity> _mapper;
 
-        public UpdateStrategy(IEnumerable<GenericDbContext> genericDbContexts, IMapper<TEntity> mapper)
+        // this is only because it is not possible today to do multiple registrations on one type to get same instance.
+        // service.AddSingleton<GenericDbContextV1>()
+        // service.AddSingleton<GenericDbContextBase, GenericDbContextV1>();
+        // this sample will return every time a new instance but we want for this test the same instance.
+        public UpdateStrategy(GenericDbContextV1 genericDbContextV1, GenericDbContextV2 genericDbContextV2, GenericDbContextV3 genericDbContextV3, IMapper<TEntity> mapper) : this(mapper, genericDbContextV3, genericDbContextV2, genericDbContextV1)
+        {
+        }
+
+        private UpdateStrategy(IMapper<TEntity> mapper, params GenericDbContextBase[] genericDbContexts)
         {
             _genericDbContexts = genericDbContexts;
-            _mapper = mapper;
         }
 
         public async Task UpdateAsync(params TEntity[] entities)

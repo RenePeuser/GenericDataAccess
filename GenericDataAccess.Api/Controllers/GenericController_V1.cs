@@ -11,17 +11,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    // Sample controller V1 with direct accessing the db context
+    // Sample controller V1 with direct accessing the db dbContext
     [ApiVersion("1.0")]
     [GenericControllerName]
     internal class GenericController_V1<TEntity> : ControllerBase where TEntity : EntityBase
     {
-        private readonly InMemoryDbContext _context;
+        private readonly GenericDbContextV1 _dbContext;
         private readonly IMapper<TEntity> _mapper;
 
-        public GenericController_V1(InMemoryDbContext context, IMapper<TEntity> mapper)
+        public GenericController_V1(GenericDbContextV1 dbContext, IMapper<TEntity> mapper)
         {
-            _context = context;
+            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -29,7 +29,7 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<TEntity>> GetAsync()
         {
-            return Ok(_context.Set<TEntity>());
+            return Ok(_dbContext.Set<TEntity>());
         }
 
         [HttpPost]
@@ -37,15 +37,15 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult> Post([FromBody] TEntity entity)
         {
-            var result = await _context.FindAsync<TEntity>(entity.Id);
+            var result = await _dbContext.FindAsync<TEntity>(entity.Id);
             if (result.IsNotNull())
             {
                 throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists",
                     $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
             }
 
-            await _context.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
 
             return Ok(entity);
         }
@@ -56,14 +56,14 @@ namespace Api.Controllers
         public async Task<ActionResult> Delete(string id)
         {
             var guid = new Guid(id);
-            var existingItem = await _context.FindAsync<TEntity>(guid);
+            var existingItem = await _dbContext.FindAsync<TEntity>(guid);
             if (existingItem.IsNull())
             {
                 return NotFound(id);
             }
 
-            _context.Remove(existingItem);
-            await _context.SaveChangesAsync();
+            _dbContext.Remove(existingItem);
+            await _dbContext.SaveChangesAsync();
 
             return Ok();
         }
@@ -74,16 +74,16 @@ namespace Api.Controllers
         public async Task<ActionResult> UpdateAsync(string id, TEntity entity)
         {
             var guid = new Guid(id);
-            var existingItem = await _context.FindAsync<TEntity>(guid);
+            var existingItem = await _dbContext.FindAsync<TEntity>(guid);
             if (existingItem.IsNull())
             {
                 return NotFound(id);
             }
 
             var result = _mapper.Map(entity, existingItem);
-            _context.Update(result);
+            _dbContext.Update(result);
 
-            await _context.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             return Ok();
         }

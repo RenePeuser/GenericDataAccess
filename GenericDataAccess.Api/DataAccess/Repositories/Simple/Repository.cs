@@ -7,34 +7,34 @@ namespace Api.DataAccess.Repositories.Simple
 {
     internal class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
     {
-        private readonly InMemoryDbContext _inMemoryDbContext;
+        private readonly GenericDbContextV3 _genericDbContextV3;
 
-        public Repository(InMemoryDbContext inMemoryDbContext)
+        public Repository(GenericDbContextV3 genericDbContextV3)
         {
-            _inMemoryDbContext = inMemoryDbContext;
+            _genericDbContextV3 = genericDbContextV3;
         }
 
         public Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return Task.FromResult<IEnumerable<TEntity>>(_inMemoryDbContext.Set<TEntity>());
+            return Task.FromResult<IEnumerable<TEntity>>(_genericDbContextV3.Set<TEntity>());
         }
 
         public Task AddAsync(params TEntity[] entities)
         {
-            _inMemoryDbContext.Set<TEntity>().AddRange(entities);
-            return _inMemoryDbContext.SaveChangesAsync();
+            _genericDbContextV3.Set<TEntity>().AddRange(entities);
+            return _genericDbContextV3.SaveChangesAsync();
         }
 
         public Task Delete(params TEntity[] entities)
         {
-            _inMemoryDbContext.Set<TEntity>().RemoveRange(entities);
-            return _inMemoryDbContext.SaveChangesAsync();
+            _genericDbContextV3.Set<TEntity>().RemoveRange(entities);
+            return _genericDbContextV3.SaveChangesAsync();
         }
 
         public Task UpdateAsync(params TEntity[] entities)
         {
-            _inMemoryDbContext.Set<TEntity>().RemoveRange(entities);
-            return _inMemoryDbContext.SaveChangesAsync();
+            _genericDbContextV3.Set<TEntity>().RemoveRange(entities);
+            return _genericDbContextV3.SaveChangesAsync();
         }
     }
 

@@ -6,11 +6,6 @@ using Extensions.Pack;
 
 namespace Api.Infrastructure.Provider
 {
-    public interface IEntityProvider
-    {
-        IEnumerable<Type> GetAll();
-    }
-
     public class EntityProvider : IEntityProvider
     {
         private static readonly Lazy<IEnumerable<Type>> LazyTypes = new Lazy<IEnumerable<Type>>(() => new AssemblyTypeProvider().GetAll().Where(t => t.HasCustomAttribute<EntityAttribute>()).ToList());

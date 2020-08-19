@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.DataAccess.Provider
 {
-    public abstract class GenericDbContext : DbContext
+    public abstract class GenericDbContextBase : DbContext
     {
         private readonly IEntityProvider _entityProvider;
         private readonly string _databaseName;
 
-        protected GenericDbContext(IEntityProvider entityProvider, string databaseName)
+        protected GenericDbContextBase(IEntityProvider entityProvider, string databaseName)
         {
             _entityProvider = entityProvider;
             _databaseName = databaseName;

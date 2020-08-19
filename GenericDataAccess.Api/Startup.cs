@@ -4,6 +4,7 @@ using Api.Controllers;
 using Api.Controllers.Attributes;
 using Api.DataAccess;
 using Api.DataAccess.Provider;
+using Api.DataAccess.Repositories;
 using Api.Errorhandling;
 using Api.Swagger;
 using Extensions.Pack;
@@ -23,7 +24,7 @@ namespace Api
             services.AddControllers();
 
             services.AddSingleton<GenericDbContext>();
-            services.AddSingleton(typeof(Repository<>));
+            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<IApiVersionProvider, ApiVersionProvider>();
             services.AddSingleton<IAssemblyTypeProvider, AssemblyTypeProvider>();

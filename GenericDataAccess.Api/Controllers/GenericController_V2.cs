@@ -1,5 +1,7 @@
-﻿using Api.Controllers.Attributes;
+﻿using System.Threading.Tasks;
+using Api.Controllers.Attributes;
 using Api.DataAccess;
+using Api.DataAccess.Repositories;
 using Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,18 +12,18 @@ namespace Api.Controllers
     [GenericControllerName]
     internal class GenericController_V2<TEntity> : ControllerBase where TEntity : EntityBase
     {
-        private readonly Repository<TEntity> _repository;
+        private readonly IRepository<TEntity> _repository;
 
-        public GenericController_V2(Repository<TEntity> repository)
+        public GenericController_V2(IRepository<TEntity> repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetAsync()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(_repository.GetAll());
+            return Ok(await _repository.GetAllAsync());
         }
     }
 }

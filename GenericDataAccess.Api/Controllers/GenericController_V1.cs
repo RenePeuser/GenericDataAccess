@@ -41,7 +41,8 @@ namespace Api.Controllers
             var result = await _context.FindAsync<TEntity>(entity.Id);
             if (result.IsNotNull())
             {
-                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists", $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
+                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists",
+                    $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
             }
 
             await _context.AddAsync(entity);
@@ -56,7 +57,7 @@ namespace Api.Controllers
         public async Task<ActionResult> Delete(string id)
         {
             var guid = new Guid(id);
-            var existingItem = _context.FindAsync<TEntity>(guid);
+            var existingItem = await _context.FindAsync<TEntity>(guid);
             if (existingItem.IsNull())
             {
                 return NotFound(id);

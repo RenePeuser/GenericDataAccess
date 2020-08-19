@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Api.Controllers.Attributes;
-using Api.DataAccess;
 using Api.DataAccess.Models;
 using Api.DataAccess.Repositories;
 using Microsoft.AspNetCore.Http;

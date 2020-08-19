@@ -1,4 +1,3 @@
-using Api.Controllers;
 using Api.DataAccess.Mapper;
 using Api.DataAccess.Provider;
 using Api.DataAccess.Repositories;

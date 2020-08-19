@@ -20,11 +20,11 @@ namespace Api.DataAccess.Provider
         private static IEnumerable<ApiVersion> CollectInternal()
         {
             var allApiVersions = AssemblyTypeProvider.GetAll()
-                                                     .Where(type => type.HasCustomAttribute<ApiVersionAttribute>() && type.HasCustomAttribute<ApiControllerAttribute>())
-                                                     .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
-                                                     .SelectMany(attribute => attribute.Versions)
-                                                     .Distinct()
-                                                     .OrderBy(version => version.ToString());
+                .Where(type => type.HasCustomAttribute<ApiVersionAttribute>() && type.HasCustomAttribute<ApiControllerAttribute>())
+                .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
+                .SelectMany(attribute => attribute.Versions)
+                .Distinct()
+                .OrderBy(version => version.ToString());
             return allApiVersions;
         }
     }
@@ -43,15 +43,15 @@ namespace Api.DataAccess.Provider
         private static IEnumerable<ApiVersion> CollectInternal()
         {
             var genericControllerVersions = AssemblyTypeProvider.GetAll()
-                                                     .Where(type => type.HasCustomAttribute<ApiVersionAttribute>() && type.HasCustomAttribute<GenericControllerNameAttribute>())
-                                                     .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
-                                                     .SelectMany(attribute => attribute.Versions)
-                                                     .Distinct()
-                                                     .OrderBy(version => version.ToString());
+                .Where(type => type.HasCustomAttribute<ApiVersionAttribute>() && type.HasCustomAttribute<GenericControllerNameAttribute>())
+                .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
+                .SelectMany(attribute => attribute.Versions)
+                .Distinct()
+                .OrderBy(version => version.ToString());
 
             var entityVersions = EntityProvider.GetAll()
-                                               .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
-                                               .SelectMany(attribute => attribute.Versions);
+                .SelectMany(type => type.GetCustomAttributes<ApiVersionAttribute>())
+                .SelectMany(attribute => attribute.Versions);
 
             var usedVersionsAtRuntime = genericControllerVersions.Intersect(entityVersions);
             return usedVersionsAtRuntime;
@@ -65,11 +65,19 @@ namespace Api.DataAccess.Provider
 
     public class ApiVersionProvider : IApiVersionProvider
     {
-        private static readonly IEnumerable<IApiVersionCollectorStrategy> ApiVersionCollectorStrategies = new IApiVersionCollectorStrategy[] { new ApiVersionGenericControllerProvider(), new ApiVersionStaticControllerProvider() };
+        private static readonly IEnumerable<IApiVersionCollectorStrategy> ApiVersionCollectorStrategies = new IApiVersionCollectorStrategy[]
+            {new ApiVersionGenericControllerProvider(), new ApiVersionStaticControllerProvider()};
+
         private static readonly Lazy<IEnumerable<ApiVersion>> GetAllApiVersions = new Lazy<IEnumerable<ApiVersion>>(() => GetAllInternal().ToList());
 
-        public IEnumerable<ApiVersion> GetAll() => GetAllApiVersions.Value;
+        public IEnumerable<ApiVersion> GetAll()
+        {
+            return GetAllApiVersions.Value;
+        }
 
-        private static IEnumerable<ApiVersion> GetAllInternal() => ApiVersionCollectorStrategies.SelectMany(strategy => strategy.Collect());
+        private static IEnumerable<ApiVersion> GetAllInternal()
+        {
+            return ApiVersionCollectorStrategies.SelectMany(strategy => strategy.Collect());
+        }
     }
 }

@@ -15,6 +15,9 @@ namespace Api.DataAccess.Provider
     {
         private static readonly Lazy<IEnumerable<Type>> LazyTypes = new Lazy<IEnumerable<Type>>(() => new AssemblyTypeProvider().GetAll().Where(t => t.HasCustomAttribute<EntityAttribute>()).ToList());
 
-        public IEnumerable<Type> GetAll() => LazyTypes.Value;
+        public IEnumerable<Type> GetAll()
+        {
+            return LazyTypes.Value;
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Api.Controllers;
 using Api.Controllers.Attributes;
 using Api.DataAccess.Models;
 using Extensions.Pack;
@@ -22,7 +21,8 @@ namespace Api.DataAccess.Provider
         private static IEnumerable<GenerateControllerInfo> CollectGenerateControllerInfoInternal()
         {
             var types = AssemblyTypeProvider.GetAll().Where(t => t.HasCustomAttribute<GenericControllerAttribute>());
-            return types.Select(t => new GenerateControllerInfo(t, t.GetCustomAttribute<GenericControllerAttribute>(), t.GetCustomAttributes<ApiVersionAttribute>().SelectMany(a => a.Versions).ToList()));
+            return types.Select(t =>
+                new GenerateControllerInfo(t, t.GetCustomAttribute<GenericControllerAttribute>(), t.GetCustomAttributes<ApiVersionAttribute>().SelectMany(a => a.Versions).ToList()));
         }
     }
 }

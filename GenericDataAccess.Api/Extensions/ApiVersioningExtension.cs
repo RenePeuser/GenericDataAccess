@@ -20,7 +20,8 @@ namespace Api
                     var apiVersion = controllerType.GetCustomAttribute<ApiVersionAttribute>();
                     if (apiVersion.IsNull())
                     {
-                        throw new ProblemDetailsException(500, $"Missing api version attribute on controller: {controllerType.Name}", $"Missing api version attribute on controller: {controllerType.Name}. please set the ApiVersion attribute to the the named controller.");
+                        throw new ProblemDetailsException(500, $"Missing api version attribute on controller: {controllerType.Name}",
+                            $"Missing api version attribute on controller: {controllerType.Name}. please set the ApiVersion attribute to the the named controller.");
                     }
 
                     var allVersions = apiVersion.Versions.Select(v => v);

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Api.Controllers.Attributes;
+using Api.Infrastructure.Attributes;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public class ApiVersionStaticControllerProvider : IApiVersionCollectorStrategy
     {

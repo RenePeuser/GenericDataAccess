@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public interface IAssemblyTypeProvider
     {

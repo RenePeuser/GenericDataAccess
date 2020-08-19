@@ -1,7 +1,7 @@
-using Api.DataAccess.Provider;
+using Api.Infrastructure.Provider;
 using Microsoft.AspNetCore.Builder;
 
-namespace Api
+namespace Api.Infrastructure.Extensions
 {
     internal static class UseSwaggerUIExtensions
     {

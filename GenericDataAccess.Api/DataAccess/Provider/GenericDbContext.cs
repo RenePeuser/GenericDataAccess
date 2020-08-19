@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using Api.Infrastructure.Provider;
 using Extensions.Pack;
 using Microsoft.EntityFrameworkCore;
 

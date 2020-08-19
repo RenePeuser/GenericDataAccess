@@ -3,7 +3,7 @@ using Extensions.Pack;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Api.Swagger
+namespace Api.Infrastructure.Swagger
 {
     public class RemoveVersionParameterFilter : IOperationFilter
     {

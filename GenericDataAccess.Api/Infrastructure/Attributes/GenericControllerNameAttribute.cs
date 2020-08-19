@@ -1,10 +1,10 @@
 ﻿using System;
-using Api.DataAccess.Provider;
-using Api.Errorhandling;
+using Api.Infrastructure.Errorhandling;
+using Api.Infrastructure.Provider;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Api.Controllers.Attributes
+namespace Api.Infrastructure.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class GenericControllerNameAttribute : Attribute, IControllerModelConvention

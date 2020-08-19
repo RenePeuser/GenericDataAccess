@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using Api.Controllers.Attributes;
-using Api.DataAccess.Provider;
+using Api.Infrastructure.Provider;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Api
+namespace Api.Infrastructure.Extensions
 {
     public static class MvcExtensions
     {

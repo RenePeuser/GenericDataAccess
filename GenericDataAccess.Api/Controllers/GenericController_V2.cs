@@ -2,6 +2,7 @@
 using Api.Controllers.Attributes;
 using Api.DataAccess.Models;
 using Api.DataAccess.Repositories;
+using Api.Infrastructure.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Api.DataAccess.Models;
 using Extensions.Pack;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public interface IEntityProvider
     {

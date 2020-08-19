@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Api.Controllers.Attributes;
 using Api.DataAccess.Models;
+using Api.Infrastructure.Models;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public class GenericControllerAttributeProvider : IGenericControllerAttributeProvider
     {

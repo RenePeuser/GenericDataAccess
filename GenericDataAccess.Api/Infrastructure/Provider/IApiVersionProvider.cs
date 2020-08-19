@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public interface IApiVersionProvider
     {

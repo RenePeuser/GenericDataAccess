@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Api.Errorhandling;
+using Api.Infrastructure.Errorhandling;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public class TypeToControllerNameProvider
     {

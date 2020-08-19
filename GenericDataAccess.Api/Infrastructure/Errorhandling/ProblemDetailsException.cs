@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Errorhandling
+namespace Api.Infrastructure.Errorhandling
 {
     public class ProblemDetailsException : Exception
     {

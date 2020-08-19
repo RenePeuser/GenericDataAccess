@@ -5,14 +5,6 @@ using Api.DataAccess.Provider;
 
 namespace Api.DataAccess.Repositories
 {
-    internal interface IRepository<TEntity> where TEntity : EntityBase
-    {
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task AddAsync(params TEntity[] entities);
-        Task Delete(params TEntity[] entities);
-        Task UpdateAsync(params TEntity[] entities);
-    }
-
     internal class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
     {
         private readonly GenericDbContext _genericDbContext;

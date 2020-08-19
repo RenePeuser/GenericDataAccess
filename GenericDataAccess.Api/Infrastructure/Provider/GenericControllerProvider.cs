@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Api.Controllers.Attributes;
-using Api.Errorhandling;
+using Api.Infrastructure.Attributes;
+using Api.Infrastructure.Errorhandling;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public interface IGenericControllerProvider
     {

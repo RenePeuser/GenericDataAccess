@@ -1,11 +1,11 @@
 using System.Linq;
-using Api.DataAccess.Provider;
-using Api.Errorhandling;
+using Api.Infrastructure.Errorhandling;
+using Api.Infrastructure.Provider;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Api
+namespace Api.Infrastructure.Extensions
 {
     internal static class ApiVersioningExtension
     {

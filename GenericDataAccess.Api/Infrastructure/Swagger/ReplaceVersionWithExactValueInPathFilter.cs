@@ -1,11 +1,11 @@
 using System.Linq;
-using Api.Errorhandling;
+using Api.Infrastructure.Errorhandling;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Api.Swagger
+namespace Api.Infrastructure.Swagger
 {
     public class ReplaceVersionWithExactValueInPathFilter : IDocumentFilter
     {

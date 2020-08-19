@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Api.Errorhandling
+namespace Api.Infrastructure.Errorhandling
 {
     public class ErrorHandlingMiddleware : IMiddleware
     {

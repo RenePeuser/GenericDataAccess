@@ -1,9 +1,9 @@
-using Api.DataAccess.Provider;
-using Api.Swagger;
+using Api.Infrastructure.Provider;
+using Api.Infrastructure.Swagger;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Api
+namespace Api.Infrastructure.Extensions
 {
     internal static class AddSwaggerGenExtensions
     {

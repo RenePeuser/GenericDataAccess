@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Api.Errorhandling;
+using Api.Infrastructure.Errorhandling;
 using Extensions.Pack;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public class TypeSpecificRouteProvider
     {

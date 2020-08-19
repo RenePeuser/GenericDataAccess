@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Api.DataAccess.Models;
+using Api.Infrastructure.Models;
 
-namespace Api.DataAccess.Provider
+namespace Api.Infrastructure.Provider
 {
     public interface IGenericControllerAttributeProvider
     {

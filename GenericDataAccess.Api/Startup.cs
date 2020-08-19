@@ -1,7 +1,10 @@
 using Api.DataAccess.Mapper;
 using Api.DataAccess.Provider;
 using Api.DataAccess.Repositories;
-using Api.Errorhandling;
+using Api.Infrastructure;
+using Api.Infrastructure.Errorhandling;
+using Api.Infrastructure.Extensions;
+using Api.Infrastructure.Provider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

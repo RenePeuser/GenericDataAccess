@@ -1,4 +1,6 @@
-﻿using System;
+﻿namespace Api.Attributes
+{
+    using System;
 
 namespace Api.Controllers.Attributes
 {

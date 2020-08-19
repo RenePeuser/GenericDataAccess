@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Api.Controllers.Attributes;
+using Api.Infrastructure.Attributes;
 using Api.Infrastructure.Provider;
 using Microsoft.Extensions.DependencyInjection;
 

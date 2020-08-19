@@ -7,13 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.DataAccess.Provider
 {
-    public class GenericDbContext : DbContext
+    public abstract class GenericDbContext : DbContext
     {
         private readonly IEntityProvider _entityProvider;
+        private readonly string _databaseName;
 
-        public GenericDbContext(IEntityProvider entityProvider)
+        protected GenericDbContext(IEntityProvider entityProvider, string databaseName)
         {
             _entityProvider = entityProvider;
+            _databaseName = databaseName;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,7 +24,7 @@ namespace Api.DataAccess.Provider
 
             if (optionsBuilder.IsConfigured.IsFalse())
             {
-                optionsBuilder.UseInMemoryDatabase("GenericDatabase");
+                optionsBuilder.UseInMemoryDatabase(_databaseName);
             }
         }
 
@@ -35,7 +37,7 @@ namespace Api.DataAccess.Provider
             foreach (var type in types)
             {
                 var propertyInfos = type.GetProperties();
-                var propertyNameOfKey = propertyInfos.FirstOrDefault(p => p.HasCustomAttribute<KeyAttribute>());
+                var propertyNameOfKey = propertyInfos.FirstOrDefault(p => CustomAttributeProviderExtensions.HasCustomAttribute<KeyAttribute>(p));
                 if (propertyNameOfKey.IsNull())
                 {
                     throw new InvalidDataException($"Type: {type.Name} does not have defined key property");

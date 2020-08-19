@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Api.DataAccess.Provider;
 using Api.Infrastructure.Provider;
 using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Api.Controllers.Attributes
+namespace Api.Infrastructure.Attributes
 {
     internal class GenericControllerRouteConvention : IControllerModelConvention
     {

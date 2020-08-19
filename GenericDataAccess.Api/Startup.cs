@@ -1,6 +1,8 @@
 using Api.DataAccess.Mapper;
 using Api.DataAccess.Provider;
 using Api.DataAccess.Repositories;
+using Api.DataAccess.Repositories.Freaky;
+using Api.DataAccess.Repositories.Freaky.Strategies;
 using Api.Infrastructure;
 using Api.Infrastructure.Errorhandling;
 using Api.Infrastructure.Extensions;
@@ -18,8 +20,13 @@ namespace Api
         {
             services.AddControllers();
 
-            services.AddSingleton<GenericDbContext>();
-            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+            // this is for simple test scenario.
+            services.AddSingleton<InMemoryDbContext>();
+
+            // this is for scenario that we have many sources to inject IEnumerable<GenericDbContext>
+            services.AddSingleton<GenericDbContext, InMemory_One_Of_Two>();
+            services.AddSingleton<GenericDbContext, InMemory_Two_Of_Two>();
+
             services.AddSingleton<ErrorHandlingMiddleware>();
             services.AddSingleton<IApiVersionProvider, ApiVersionProvider>();
             services.AddSingleton<IAssemblyTypeProvider, AssemblyTypeProvider>();
@@ -29,6 +36,15 @@ namespace Api
             services.AddSingleton<TypeToControllerNameProvider>();
             services.AddSingleton<IGenericTypeProvider, GenericTypeProvider>();
             services.AddSingleton(typeof(IMapper<>), typeof(GenericMapper<>));
+
+            // ToDo: decide which repository you want to use.
+            // services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+            services.AddSingleton(typeof(IRepository<>), typeof(StrategyRepository<>));
+
+            services.AddSingleton(typeof(GetStrategy<>));
+            services.AddSingleton(typeof(AddStrategy<>));
+            services.AddSingleton(typeof(DeleteStrategy<>));
+            services.AddSingleton(typeof(UpdateStrategy<>));
 
             // new one comes here :-)
             services.AddMvcUltimate();

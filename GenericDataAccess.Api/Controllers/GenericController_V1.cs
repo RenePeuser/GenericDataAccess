@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Controllers.Attributes;
 using Api.DataAccess.Mapper;
 using Api.DataAccess.Models;
 using Api.DataAccess.Provider;
@@ -17,10 +16,10 @@ namespace Api.Controllers
     [GenericControllerName]
     internal class GenericController_V1<TEntity> : ControllerBase where TEntity : EntityBase
     {
-        private readonly GenericDbContext _context;
+        private readonly InMemoryDbContext _context;
         private readonly IMapper<TEntity> _mapper;
 
-        public GenericController_V1(GenericDbContext context, IMapper<TEntity> mapper)
+        public GenericController_V1(InMemoryDbContext context, IMapper<TEntity> mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Api.Controllers.Attributes;
 using Api.DataAccess.Models;
 using Api.DataAccess.Repositories;
 using Api.Infrastructure.Attributes;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+
     [ApiVersion("2.0")]
     [GenericControllerName]
     internal class GenericController_V2<TEntity> : ControllerBase where TEntity : EntityBase

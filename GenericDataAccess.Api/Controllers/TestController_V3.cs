@@ -7,7 +7,7 @@ namespace Api.Controllers
 {
     [ApiVersion("3.0")]
     [ApiController]
-    [Route("/persons")]
+    [Route("/person")]
     public class TestController_V3 : ControllerBase
     {
         [HttpGet]

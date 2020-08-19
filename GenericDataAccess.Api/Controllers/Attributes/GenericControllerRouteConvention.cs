@@ -5,7 +5,7 @@ using Extensions.Pack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Api.Controllers
+namespace Api.Controllers.Attributes
 {
     internal class GenericControllerRouteConvention : IControllerModelConvention
     {

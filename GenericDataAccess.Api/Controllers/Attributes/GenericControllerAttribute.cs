@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Api.Controllers
+namespace Api.Controllers.Attributes
 {
     public class GenericControllerAttribute : Attribute
     {

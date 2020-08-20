@@ -8,7 +8,7 @@ namespace Api.DataAccess.Models
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
     [ApiVersion("3.0")]
-    [GenericController("v{version:apiVersion}/persons", "PersonsController")]
+    [GenericController("api/v{version:apiVersion}/persons", "PersonsController")]
     internal class Person : EntityBase
     {
         public string Name { get; set; } = "Son";
@@ -20,7 +20,7 @@ namespace Api.DataAccess.Models
 
     [Entity]
     [ApiVersion("2.0")]
-    [GenericController("v{version:apiVersion}/jobs", "JobsController")]
+    [GenericController("api/v{version:apiVersion}/jobs", "JobsController")]
     internal class Job : EntityBase
     {
         public string Company { get; set; } = "Microsoft";

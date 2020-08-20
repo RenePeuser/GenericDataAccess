@@ -19,8 +19,7 @@ namespace Api.Infrastructure.Swagger
             var paths = new OpenApiPaths();
             foreach (var path in swaggerDoc.Paths)
             {
-                var matchingApi =
-                    context.ApiDescriptions.FirstOrDefault(api => api.RelativePath.EqualsTo(path.Key.TrimStart('/')));
+                var matchingApi = context.ApiDescriptions.FirstOrDefault(api => api.RelativePath.EqualsTo(path.Key.TrimStart('/')));
                 var versionInfo = matchingApi.ActionDescriptor.EndpointMetadata.FirstOfType<ApiVersionAttribute>();
                 if (versionInfo.IsNull())
                 {

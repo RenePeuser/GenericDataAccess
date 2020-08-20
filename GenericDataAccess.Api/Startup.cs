@@ -3,7 +3,6 @@ using Api.DataAccess.Provider;
 using Api.DataAccess.Repositories;
 using Api.DataAccess.Repositories.Freaky;
 using Api.DataAccess.Repositories.Freaky.Strategies;
-using Api.Infrastructure;
 using Api.Infrastructure.Errorhandling;
 using Api.Infrastructure.Extensions;
 using Api.Infrastructure.Provider;
@@ -36,7 +35,7 @@ namespace Api
             services.AddSingleton(typeof(IMapper<>), typeof(GenericMapper<>));
 
             // ToDo: decide which repository you want to use.
-            // services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+            //services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton(typeof(IRepository<>), typeof(StrategyRepository<>));
 
             services.AddSingleton(typeof(GetStrategy<>));

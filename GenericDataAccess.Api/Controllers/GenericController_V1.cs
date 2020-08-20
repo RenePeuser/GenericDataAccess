@@ -40,8 +40,7 @@ namespace Api.Controllers
             var result = await _dbContext.FindAsync<TEntity>(entity.Id);
             if (result.IsNotNull())
             {
-                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists",
-                    $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
+                throw new ProblemDetailsException(404, $"Resource with id: '{entity.Id}' already exists", $"The resource of type: {typeof(TEntity).Name} with the id: '{entity.Id}' does already exists");
             }
 
             await _dbContext.AddAsync(entity);
@@ -79,7 +78,7 @@ namespace Api.Controllers
             {
                 return NotFound(id);
             }
-
+            
             var result = _mapper.Map(entity, existingItem);
             _dbContext.Update(result);
 
